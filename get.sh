@@ -4,33 +4,34 @@
 ### should be run in the directory with the config file to use
 
 ### array of hidemyass urls
-
+### use an array so we can comment out https address that don't work
 hidemyass_array[0]="https://1.hidemyass.com/"
-hidemyass_array[0]="https://2.hidemyass.com/"
-hidemyass_array[0]="https://3.hidemyass.com/"
-hidemyass_array[1]="https://4.hidemyass.com/"
-hidemyass_array[2]="https://5.hidemyass.com/"
-hidemyass_array[3]="https://6.hidemyass.com/"
-hidemyass_array[4]="https://7.hidemyass.com/"
+#hidemyass_array[1]="https://2.hidemyass.com/"
+hidemyass_array[2]="https://3.hidemyass.com/"
+hidemyass_array[3]="https://4.hidemyass.com/"
+hidemyass_array[4]="https://5.hidemyass.com/"
+hidemyass_array[5]="https://6.hidemyass.com/"
+hidemyass_array[6]="https://7.hidemyass.com/"
 num_elements=7
 
-### randomly choose one to use
+### randomly select an ip address to use
+num_ips=13
+(( ip_index = $RANDOM % ${num_ips} ))
+### hidemyass request string
+### hidemyass_request="ip-1/encoded/"
+hidemyass_request="ip-${ip_index}/encoded/"
+
+### randomly choose one of the https and ips to use
 while true
 do
     (( index = $RANDOM % ${num_elements} ))
     hidemyass_base=${hidemyass_array[${index}]}
     if [ "x${hidemyass_base}" != "x" ]
     then
-	echo "Using ${hidemyass_base} to get data"
+	echo "Using ${hidemyass_base}${hidemyass_request} to get data"
 	break
     fi
 done
-
-### hidemyass base url
-### hidemyass_base="https://5.hidemyass.com/"
-
-### hidemyass request string
-hidemyass_request="ip-1/encoded/"
 
 ### gallery output file
 gallery_file="gallery.html"
