@@ -123,7 +123,7 @@ else
     #echo ${truncated_url}
 
     ### base64 encode the url
-    encoded_url=$(echo ${truncated_url} | base64)
+    encoded_url=$(echo ${truncated_url} | base64 -w 0)
     #echo ${encoded_url}
 
     ### build the curl string
@@ -151,7 +151,7 @@ base_image_name=$(basename ${base_url})
 for encoded_url in ${encoded_urls}
 do
     ### convert to conventional url
-    unencoded_url="http$(echo ${encoded_url} | base64 -d)"
+    unencoded_url="http$(echo ${encoded_url} | base64 -w 0 -d)"
 
     ### find the required images
     image_link=$(echo "${unencoded_url}" | grep --only-matching "${regex_image_url}" | grep "/${base_image_name}-[0-9]*.jpg")
